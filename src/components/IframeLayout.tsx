@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { UrgencyDialog } from "./UrgencyDialog";
 import { SubscriptionDialog } from "./SubscriptionDialog";
+import { SkinAnalysisDialog } from "./SkinAnalysisDialog";
 import { Button } from "./ui/button";
 import { ArrowLeft } from "lucide-react";
 
 interface IframeLayoutProps {
-  scenario: "urgency" | "subscription";
+  scenario: "urgency" | "subscription" | "skinanalysis";
 }
 
 export function IframeLayout({ scenario }: IframeLayoutProps) {
@@ -51,6 +52,9 @@ export function IframeLayout({ scenario }: IframeLayoutProps) {
       )}
       {scenario === "subscription" && (
         <SubscriptionDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+      )}
+      {scenario === "skinanalysis" && (
+        <SkinAnalysisDialog open={dialogOpen} onOpenChange={setDialogOpen} />
       )}
     </div>
   );

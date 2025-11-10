@@ -54,12 +54,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground m-0 p-0 overflow-hidden;
+    @apply bg-background text-foreground m-0 p-0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   html {
-    @apply overflow-hidden;
+    @apply overflow-x-hidden;
   }
 
   /* Improve touch interactions on mobile */

@@ -154,3 +154,4 @@ The Custom Formula Rˣ is ideal for the subscription scenario because:
 - Product information sourced from: [https://curology.com/](https://curology.com/)
 - Pricing accurate as of November 5, 2025
 - Promotional details from current holiday sale (ends 12/4/2025)
+

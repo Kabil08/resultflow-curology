@@ -342,3 +342,4 @@ The confetti feature adds a **delightful micro-interaction** that:
 - ♿ Respects accessibility
 
 Total impact: **+12KB gzipped** for a significant UX improvement!
+
