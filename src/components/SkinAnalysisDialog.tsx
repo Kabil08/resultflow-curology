@@ -17,6 +17,9 @@ import {
   Upload,
   ArrowRight,
   ArrowLeft,
+  Zap,
+  Target,
+  ShieldCheck,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -225,11 +228,35 @@ export function SkinAnalysisDialog({
       <DialogHeader>
         <DialogTitle className="text-xl sm:text-2xl flex items-center gap-2">
           <Camera className="w-5 h-5 sm:w-6 sm:h-6 text-purple-500 flex-shrink-0" />
-          <span>Let's Analyze Your Skin</span>
+          <span>First Time Visiting? We're Here to Help!</span>
         </DialogTitle>
-        <DialogDescription className="text-sm sm:text-base pt-2">
-          Upload a clear selfie to help us understand your skin better
-          (Optional)
+        <DialogDescription className="text-sm sm:text-base pt-3">
+          <p className="text-gray-700 mb-3">
+            Not sure where to start? Let us guide you to the perfect products!
+          </p>
+          <div className="space-y-2">
+            <div className="flex items-start gap-2">
+              <Zap className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-gray-600">
+                <strong className="text-gray-700">Quick & Easy:</strong> Upload
+                a clear selfie for AI-powered skin analysis
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <Target className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-gray-600">
+                <strong className="text-gray-700">Personalized Results:</strong>{" "}
+                Get product recommendations tailored to your unique skin needs
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <ShieldCheck className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-gray-600">
+                <strong className="text-gray-700">Completely Optional:</strong>{" "}
+                Skip if you prefer to browse on your own
+              </span>
+            </div>
+          </div>
         </DialogDescription>
       </DialogHeader>
 
