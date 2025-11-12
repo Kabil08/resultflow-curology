@@ -22,6 +22,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { TestimonialDialog } from "./TestimonialDialog";
 
 interface SkinAnalysisDialogProps {
   open: boolean;
@@ -47,6 +48,8 @@ export function SkinAnalysisDialog({
     concerns: [],
     goals: [],
   });
+  const [showTestimonials, setShowTestimonials] = useState(false);
+  const [shouldClose, setShouldClose] = useState(false);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -119,8 +122,38 @@ export function SkinAnalysisDialog({
     console.log(`Added to cart: ${productName}`);
     triggerConfetti();
     setTimeout(() => {
+      setShowTestimonials(false);
+      setShouldClose(false);
+      resetDialog();
       onOpenChange(false);
     }, 500);
+  };
+
+  const handleDialogClose = (isOpen: boolean) => {
+    if (!isOpen && !shouldClose) {
+      // User is trying to close, show testimonials first
+      setShowTestimonials(true);
+    } else if (!isOpen && shouldClose) {
+      // User already saw testimonials, allow close
+      setShowTestimonials(false);
+      setShouldClose(false);
+      resetDialog();
+      onOpenChange(false);
+    }
+  };
+
+  const handleTestimonialClose = () => {
+    // User closed testimonials, now allow main dialog to close
+    setShowTestimonials(false);
+    setShouldClose(true);
+    resetDialog();
+    onOpenChange(false);
+  };
+
+  const handleBackToOffer = () => {
+    // User wants to go back to the offer
+    setShowTestimonials(false);
+    setShouldClose(false);
   };
 
   const getRecommendedProducts = () => {
@@ -319,10 +352,7 @@ export function SkinAnalysisDialog({
         <Button
           variant="ghost"
           className="w-full text-sm sm:text-base"
-          onClick={() => {
-            resetDialog();
-            onOpenChange(false);
-          }}
+          onClick={() => handleDialogClose(false)}
         >
           Maybe Later
         </Button>
@@ -575,10 +605,7 @@ export function SkinAnalysisDialog({
           <Button
             variant="outline"
             className="w-full text-sm sm:text-base"
-            onClick={() => {
-              resetDialog();
-              onOpenChange(false);
-            }}
+            onClick={() => handleDialogClose(false)}
           >
             Close
           </Button>
@@ -588,12 +615,20 @@ export function SkinAnalysisDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[calc(100%-2rem)] max-w-md sm:w-full mx-auto max-h-[90vh] overflow-hidden">
-        {currentStep === "upload" && renderUploadStep()}
-        {currentStep === "questions" && renderQuestionsStep()}
-        {currentStep === "recommendations" && renderRecommendationsStep()}
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog open={open && !showTestimonials} onOpenChange={handleDialogClose}>
+        <DialogContent className="w-[calc(100%-2rem)] max-w-md sm:w-full mx-auto max-h-[90vh] overflow-hidden">
+          {currentStep === "upload" && renderUploadStep()}
+          {currentStep === "questions" && renderQuestionsStep()}
+          {currentStep === "recommendations" && renderRecommendationsStep()}
+        </DialogContent>
+      </Dialog>
+
+      <TestimonialDialog
+        open={showTestimonials}
+        onOpenChange={handleTestimonialClose}
+        onGoBack={handleBackToOffer}
+      />
+    </>
   );
 }
